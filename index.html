@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wargame Sim - Warp Ghost</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #060a0a;
+            --warp-purple: #4a0072;
+            --ghost-green: #00ff88;
+            --ghost-green-glow: #00ff88aa;
+            --fail-red: #ff3333;
+            --fail-red-glow: #ff3333aa;
+            --panel-bg: rgba(10, 20, 15, 0.85);
+            --border-neon: #00ff88;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 0, 114, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.2) 0%, transparent 40%),
+                url('data:image/svg+xml;utf8,<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"><filter id="fractal"><feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" /><feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0" in="noise" result="coloredNoise" /></filter><rect width="100%" height="100%" filter="url(%23fractal)" opacity="0.15" /></svg>');
+            background-attachment: fixed;
+            color: var(--ghost-green);
+            font-family: 'Share Tech Mono', monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--panel-bg);
+            border: 2px solid var(--border-neon);
+            box-shadow: 0 0 30px var(--ghost-green-glow), inset 0 0 20px var(--ghost-green-glow);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            text-shadow: 0 0 10px var(--ghost-green), 0 0 20px var(--ghost-green);
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #aaffdd;
+            text-shadow: 0 0 5px var(--ghost-green-glow);
+            font-family: 'Cinzel', serif;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--ghost-green);
+            color: #fff;
+            font-size: 1.2rem;
+            font-family: 'Share Tech Mono', monospace;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            box-shadow: 0 0 15px var(--ghost-green-glow);
+            border-color: #fff;
+        }
+
+        button {
+            background: rgba(0, 255, 136, 0.1);
+            color: #fff;
+            border: 2px solid var(--ghost-green);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--ghost-green-glow) inset;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: var(--ghost-green);
+            color: #000;
+            box-shadow: 0 0 30px var(--ghost-green), 0 0 10px var(--ghost-green) inset;
+        }
+
+        .dice-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+
+        .die {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 8px;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: roll-in 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            opacity: 0;
+            transform: translateY(-20px) rotate(-180deg);
+        }
+
+        @keyframes roll-in {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        .die.success {
+            background: linear-gradient(135deg, #00b359, #006633);
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 15px var(--ghost-green-glow);
+        }
+
+        .die.fail {
+            background: linear-gradient(135deg, #b30000, #660000);
+            border: 2px solid #ff3333;
+            box-shadow: 0 0 15px var(--fail-red-glow);
+        }
+
+        .summary-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--ghost-green);
+            margin: 20px 0;
+            font-family: 'Cinzel', serif;
+            color: #fff;
+        }
+
+        #wound-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--ghost-green);
+            animation: fade-in 1s ease forwards;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .warp-particle {
+            position: absolute;
+            background: var(--warp-purple);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 4s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container" id="app-container">
+        <h1>Warp Ghost Simulator</h1>
+        
+        <!-- HIT PHASE -->
+        <div id="hit-section">
+            <div class="form-group">
+                <label for="attacks">Number of Attacks</label>
+                <input type="number" id="attacks" value="12" min="1">
+            </div>
+            <div class="form-group">
+                <label for="bs">Ballistic Skill (BS+) [2-6]</label>
+                <input type="number" id="bs" value="3" min="2" max="6">
+            </div>
+            <div class="form-group">
+                <label for="strength">Weapon Strength (STR)</label>
+                <input type="number" id="strength" value="5" min="1">
+            </div>
+            <button id="btn-roll-hits">Roll for Hits</button>
+
+            <div class="dice-container" id="hit-dice-container"></div>
+            <div class="summary-text" id="hit-summary"></div>
+        </div>
+
+        <!-- WOUND PHASE -->
+        <div id="wound-section">
+            <div class="form-group">
+                <label for="toughness">Target Toughness (T)</label>
+                <input type="number" id="toughness" value="4" min="1">
+            </div>
+            <button id="btn-roll-wounds">Roll for Wounds</button>
+
+            <div class="summary-text" id="wound-target-text" style="font-size: 1.2rem; margin-bottom:10px;"></div>
+            <div class="dice-container" id="wound-dice-container"></div>
+            <div class="summary-text" id="wound-summary"></div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentHits = 0;
+        let storedSTR = 0;
+
+        const elAttacks = document.getElementById('attacks');
+        const elBS = document.getElementById('bs');
+        const elSTR = document.getElementById('strength');
+        const btnHits = document.getElementById('btn-roll-hits');
+        const hitDiceContainer = document.getElementById('hit-dice-container');
+        const hitSummary = document.getElementById('hit-summary');
+        
+        const woundSection = document.getElementById('wound-section');
+        const elToughness = document.getElementById('toughness');
+        const btnWounds = document.getElementById('btn-roll-wounds');
+        const woundTargetText = document.getElementById('wound-target-text');
+        const woundDiceContainer = document.getElementById('wound-dice-container');
+        const woundSummary = document.getElementById('wound-summary');
+
+        // Helper: Roll D6
+        function rollD6() {
+            return Math.floor(Math.random() * 6) + 1;
+        }
+
+        // Helper: Render Dice
+        function renderDice(container, rolls, successThreshold) {
+            container.innerHTML = '';
+            rolls.forEach((roll, index) => {
+                const die = document.createElement('div');
+                die.classList.add('die');
+                die.classList.add(roll >= successThreshold ? 'success' : 'fail');
+                die.textContent = roll;
+                die.style.animationDelay = `${index * 0.05}s`;
+                container.appendChild(die);
+            });
+        }
+
+        // Logic: Wound Target Calculation
+        function getWoundTarget(str, t) {
+            if (str >= 2 * t) return 2;
+            if (str > t) return 3;
+            if (str === t) return 4;
+            if (str <= t / 2) return 6;
+            return 5; // str < t but not half
+        }
+
+        // Event: Hit Roll
+        btnHits.addEventListener('click', () => {
+            const attacks = parseInt(elAttacks.value) || 1;
+            const bs = parseInt(elBS.value) || 2;
+            storedSTR = parseInt(elSTR.value) || 1;
+
+            const rolls = [];
+            currentHits = 0;
+
+            for(let i=0; i<attacks; i++) {
+                const r = rollD6();
+                rolls.push(r);
+                if (r >= bs) currentHits++;
+            }
+
+            renderDice(hitDiceContainer, rolls, bs);
+            hitSummary.innerText = `Hits: ${currentHits}`;
+
+            if (currentHits > 0) {
+                woundSection.style.display = 'block';
+                woundDiceContainer.innerHTML = '';
+                woundSummary.innerText = '';
+                woundTargetText.innerText = '';
+            } else {
+                woundSection.style.display = 'none';
+            }
+            
+            spawnParticles();
+        });
+
+        // Event: Wound Roll
+        btnWounds.addEventListener('click', () => {
+            if (currentHits <= 0) return;
+
+            const t = parseInt(elToughness.value) || 1;
+            const woundTarget = getWoundTarget(storedSTR, t);
+
+            woundTargetText.innerText = `Target to Wound: ${woundTarget}+`;
+
+            const rolls = [];
+            let woundsAllocated = 0;
+
+            for(let i=0; i<currentHits; i++) {
+                const r = rollD6();
+                rolls.push(r);
+                if (r >= woundTarget) woundsAllocated++;
+            }
+
+            renderDice(woundDiceContainer, rolls, woundTarget);
+            woundSummary.innerText = `${woundsAllocated} Wounds Allocated!`;
+            
+            spawnParticles();
+        });
+
+        // Effect: Warp Particles
+        function spawnParticles() {
+            const app = document.getElementById('app-container');
+            for(let i=0; i<10; i++) {
+                const p = document.createElement('div');
+                p.classList.add('warp-particle');
+                p.style.width = `${Math.random() * 20 + 10}px`;
+                p.style.height = p.style.width;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.bottom = `-20px`;
+                p.style.background = Math.random() > 0.5 ? 'var(--warp-purple)' : 'var(--ghost-green)';
+                app.appendChild(p);
+                setTimeout(() => p.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+</html>
