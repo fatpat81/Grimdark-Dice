@@ -309,8 +309,8 @@
     <div class="container" id="app-container">
         <h1>GrimDark Dice</h1>
         
-        <!-- HIT PHASE -->
-        <div id="hit-section">
+        <!-- SECTION 1: INIT -->
+        <div id="section-1">
             <div class="form-group">
                 <label for="attacks">Number of Attacks</label>
                 <input type="number" id="attacks" value="12" min="1">
@@ -341,22 +341,31 @@
             </div>
 
             <button id="btn-roll-hits">Roll for Hits</button>
-
-            <div class="dice-container" id="hit-dice-container"></div>
-            <div class="summary-text" id="hit-summary"></div>
         </div>
 
-        <!-- WOUND PHASE -->
-        <div id="wound-section">
+        <!-- SECTION 2: HITS & TOUGHNESS -->
+        <div id="section-2" style="display: none; animation: fade-in 0.5s ease forwards;">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--ghost-green); margin-bottom: 15px; font-size: 2rem;">Hit Results</h2>
+            <div class="dice-container" id="hit-dice-container"></div>
+            <div class="summary-text" id="hit-summary"></div>
+            
+            <hr style="border: 0; border-top: 1px dashed var(--ghost-green); margin: 25px 0; opacity: 0.5;">
+            
             <div class="form-group">
                 <label for="toughness">Target Toughness (T)</label>
                 <input type="number" id="toughness" value="4" min="1">
             </div>
             <button id="btn-roll-wounds">Roll for Wounds</button>
+        </div>
 
+        <!-- SECTION 3: WOUNDS & RESTART -->
+        <div id="section-3" style="display: none; animation: fade-in 0.5s ease forwards;">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--ghost-green); margin-bottom: 15px; font-size: 2rem;">Wound Results</h2>
             <div class="summary-text" id="wound-target-text" style="font-size: 1.2rem; margin-bottom:10px;"></div>
             <div class="dice-container" id="wound-dice-container"></div>
             <div class="summary-text" id="wound-summary"></div>
+            
+            <button id="btn-restart" style="margin-top: 25px; background: rgba(0, 255, 136, 0.2);">Restart</button>
         </div>
     </div>
 
@@ -373,12 +382,15 @@
         const hitDiceContainer = document.getElementById('hit-dice-container');
         const hitSummary = document.getElementById('hit-summary');
         
-        const woundSection = document.getElementById('wound-section');
+        const section1 = document.getElementById('section-1');
+        const section2 = document.getElementById('section-2');
+        const section3 = document.getElementById('section-3');
         const elToughness = document.getElementById('toughness');
         const btnWounds = document.getElementById('btn-roll-wounds');
         const woundTargetText = document.getElementById('wound-target-text');
         const woundDiceContainer = document.getElementById('wound-dice-container');
         const woundSummary = document.getElementById('wound-summary');
+        const btnRestart = document.getElementById('btn-restart');
 
         // Helper: Roll D6
         function rollD6() {
@@ -448,17 +460,10 @@
             hitSummary.innerHTML = `Hits to Roll: ${currentHits}` + 
                 (autoWounds > 0 ? `<br><span style="color:var(--border-neon); font-size:1.4rem;">Auto-Wounds: ${autoWounds}</span>` : '');
 
-            if (currentHits > 0 || autoWounds > 0) {
-                woundSection.style.display = 'block';
-                woundDiceContainer.innerHTML = '';
-                woundSummary.innerText = '';
-                woundTargetText.innerText = '';
-            } else {
-                woundSection.style.display = 'none';
-            }
+            section1.style.display = 'none';
+            section2.style.display = 'block';
             
             spawnParticles();
-            autoScale();
         });
 
         // Event: Wound Roll
@@ -487,8 +492,21 @@
             }
             woundSummary.innerHTML = summaryHtml;
             
+            section2.style.display = 'none';
+            section3.style.display = 'block';
+            
             spawnParticles();
-            autoScale();
+        });
+        
+        // Event: Restart
+        btnRestart.addEventListener('click', () => {
+            section3.style.display = 'none';
+            section1.style.display = 'block';
+            hitDiceContainer.innerHTML = '';
+            woundDiceContainer.innerHTML = '';
+            hitSummary.innerText = '';
+            woundSummary.innerText = '';
+            woundTargetText.innerText = '';
         });
 
         // Effect: Warp Particles
@@ -506,31 +524,6 @@
                 setTimeout(() => p.remove(), 4000);
             }
         }
-        
-        // Auto-Scale Logic
-        function autoScale() {
-            const container = document.getElementById('app-container');
-            container.style.transform = 'translate(-50%, -50%) scale(1)';
-            // Force browser reflow to reset dimensions
-            void container.offsetHeight;
-            
-            const layoutHeight = container.offsetHeight;
-            const windowHeight = window.innerHeight;
-            
-            // Allow 40px buffer for padding
-            if (layoutHeight > windowHeight - 40) {
-                const scaleFactor = (windowHeight - 40) / layoutHeight;
-                container.style.transform = `translate(-50%, -50%) scale(${scaleFactor})`;
-            } else {
-                container.style.transform = `translate(-50%, -50%) scale(1)`;
-            }
-        }
-        
-        window.addEventListener('resize', autoScale);
-        window.addEventListener('orientationchange', autoScale);
-        
-        // Initial call
-        setTimeout(autoScale, 100);
     </script>
 </body>
 </html>
