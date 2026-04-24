@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wargame Sim - GrimDark Dice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GrimDark Dice</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #060a0a;
-            --warp-purple: #4a0072;
+            --bg-color: #000000;
+            --fog-light-green: #aaffcc;
             --ghost-green: #00ff88;
             --ghost-green-glow: #00ff88aa;
             --fail-red: #ff3333;
@@ -19,19 +19,68 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(74, 0, 114, 0.4) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.2) 0%, transparent 40%),
-                url('data:image/svg+xml;utf8,<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"><filter id="fractal"><feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" /><feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0" in="noise" result="coloredNoise" /></filter><rect width="100%" height="100%" filter="url(%23fractal)" opacity="0.15" /></svg>');
-            background-attachment: fixed;
             color: var(--ghost-green);
             font-family: 'Share Tech Mono', monospace;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .fog-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: #000;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+        }
+
+        .fog-layer {
+            position: absolute;
+            width: 150vw;
+            height: 150vw;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+
+        .fog-layer:nth-child(2) {
+            width: 200vw;
+            height: 100vw;
+            background: radial-gradient(circle, rgba(170, 255, 204, 0.1) 0%, transparent 60%);
+            animation: drift-rev 25s infinite alternate ease-in-out;
+            animation-delay: -5s;
+        }
+
+        .fog-layer:nth-child(3) {
+            width: 100vw;
+            height: 150vw;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.12) 0%, transparent 70%);
+            animation: drift-vertical 30s infinite alternate ease-in-out;
+            animation-delay: -10s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(-20%, -10%); }
+            100% { transform: translate(20%, 10%); }
+        }
+
+        @keyframes drift-rev {
+            0% { transform: translate(20%, 15%); }
+            100% { transform: translate(-20%, -15%); }
+        }
+
+        @keyframes drift-vertical {
+            0% { transform: translate(-10%, 20%); }
+            100% { transform: translate(10%, -20%); }
         }
 
         .container {
@@ -41,9 +90,13 @@
             border-radius: 10px;
             padding: 30px;
             max-width: 600px;
-            width: 100%;
+            width: calc(100% - 40px);
+            box-sizing: border-box;
             text-align: center;
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             overflow: hidden;
         }
 
@@ -230,7 +283,7 @@
 
         .warp-particle {
             position: absolute;
-            background: var(--warp-purple);
+            background: var(--fog-light-green);
             border-radius: 50%;
             pointer-events: none;
             opacity: 0.6;
@@ -247,8 +300,14 @@
 </head>
 <body>
 
+    <div class="fog-container">
+        <div class="fog-layer"></div>
+        <div class="fog-layer"></div>
+        <div class="fog-layer"></div>
+    </div>
+
     <div class="container" id="app-container">
-        <h1>Warp Ghost Simulator</h1>
+        <h1>GrimDark Dice</h1>
         
         <!-- HIT PHASE -->
         <div id="hit-section">
@@ -265,12 +324,19 @@
                 <input type="number" id="strength" value="5" min="1">
             </div>
             
-            <div class="checkbox-group">
+            <div class="checkbox-group" style="margin-bottom: 5px;">
                 <label>
                     <input type="checkbox" id="lethal-hits"> Lethal Hits
                 </label>
+            </div>
+            
+            <div class="checkbox-group" style="margin-top: 5px;">
+                <span style="color: #aaffdd; font-family: 'Cinzel', serif; font-size: 1.1rem; text-shadow: 0 0 5px var(--ghost-green-glow); margin-right: 10px; align-self: center;">Sustained Hits:</span>
                 <label>
-                    <input type="checkbox" id="sustained-hits"> Sustained Hits (1)
+                    <input type="checkbox" id="sustained-hits-1" onchange="if(this.checked) document.getElementById('sustained-hits-2').checked = false;"> (1)
+                </label>
+                <label>
+                    <input type="checkbox" id="sustained-hits-2" onchange="if(this.checked) document.getElementById('sustained-hits-1').checked = false;"> (2)
                 </label>
             </div>
 
@@ -348,7 +414,12 @@
             storedSTR = parseInt(elSTR.value) || 1;
             
             const lethalEnabled = document.getElementById('lethal-hits').checked;
-            const sustainedEnabled = document.getElementById('sustained-hits').checked;
+            const sustained1Enabled = document.getElementById('sustained-hits-1').checked;
+            const sustained2Enabled = document.getElementById('sustained-hits-2').checked;
+            
+            let sustainedLevel = 0;
+            if (sustained1Enabled) sustainedLevel = 1;
+            if (sustained2Enabled) sustainedLevel = 2;
 
             const rolls = [];
             currentHits = 0;
@@ -364,8 +435,8 @@
                     } else {
                         currentHits++;
                     }
-                    if (sustainedEnabled) {
-                        currentHits++; // Extra hit from sustained hits
+                    if (sustainedLevel > 0) {
+                        currentHits += sustainedLevel; // Extra hits from sustained hits
                     }
                 } else if (r >= bs) {
                     currentHits++;
@@ -387,6 +458,7 @@
             }
             
             spawnParticles();
+            autoScale();
         });
 
         // Event: Wound Roll
@@ -416,6 +488,7 @@
             woundSummary.innerHTML = summaryHtml;
             
             spawnParticles();
+            autoScale();
         });
 
         // Effect: Warp Particles
@@ -428,11 +501,36 @@
                 p.style.height = p.style.width;
                 p.style.left = `${Math.random() * 100}%`;
                 p.style.bottom = `-20px`;
-                p.style.background = Math.random() > 0.5 ? 'var(--warp-purple)' : 'var(--ghost-green)';
+                p.style.background = Math.random() > 0.5 ? 'var(--fog-light-green)' : 'var(--ghost-green)';
                 app.appendChild(p);
                 setTimeout(() => p.remove(), 4000);
             }
         }
+        
+        // Auto-Scale Logic
+        function autoScale() {
+            const container = document.getElementById('app-container');
+            container.style.transform = 'translate(-50%, -50%) scale(1)';
+            // Force browser reflow to reset dimensions
+            void container.offsetHeight;
+            
+            const layoutHeight = container.offsetHeight;
+            const windowHeight = window.innerHeight;
+            
+            // Allow 40px buffer for padding
+            if (layoutHeight > windowHeight - 40) {
+                const scaleFactor = (windowHeight - 40) / layoutHeight;
+                container.style.transform = `translate(-50%, -50%) scale(${scaleFactor})`;
+            } else {
+                container.style.transform = `translate(-50%, -50%) scale(1)`;
+            }
+        }
+        
+        window.addEventListener('resize', autoScale);
+        window.addEventListener('orientationchange', autoScale);
+        
+        // Initial call
+        setTimeout(autoScale, 100);
     </script>
 </body>
 </html>
