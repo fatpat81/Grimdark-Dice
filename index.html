@@ -9,12 +9,386 @@
         :root {
             --bg-color: #000000;
             --fog-light-green: #aaffcc;
-            --ghost-green: #00ff88;
-            --ghost-green-glow: #00ff88aa;
+            --ghost-green: #00ff00;
+            --ghost-green-glow: #00ff00aa;
             --fail-red: #ff3333;
             --fail-red-glow: #ff3333aa;
-            --panel-bg: rgba(10, 20, 15, 0.85);
-            --border-neon: #00ff88;
+            --panel-bg: rgba(26, 20, 15, 0.4);
+            --border-neon: #00ff00;
+            --fog-color-1: rgba(0, 255, 0, 0.15);
+            --fog-color-2: rgba(184, 153, 102, 0.15);
+            --fog-color-3: rgba(0, 255, 0, 0.12);
+            --dice-grad-light: #d4b88a; 
+            --dice-grad-dark: #8c7355; 
+            --dice-text: #00ff00;
+        }
+
+        /* --- IMPERIUM: SPACE MARINES --- */
+        body.faction-ultramarines {
+            --fog-light-green: #33aaff;
+            --ghost-green: #ffcc00;
+            --ghost-green-glow: #ffcc00aa;
+            --border-neon: #0044aa;
+            --fog-color-1: rgba(0, 68, 170, 0.15);
+            --fog-color-2: rgba(255, 204, 0, 0.1);
+            --fog-color-3: rgba(51, 170, 255, 0.12);
+            --dice-grad-light: #33aaff; 
+            --dice-grad-dark: #0044aa;
+            --dice-text: #ffcc00;
+            --panel-bg: rgba(10, 20, 30, 0.4);
+        }
+
+        body.faction-bloodangels {
+            --fog-light-green: #ff3333;
+            --ghost-green: #ffcc00;
+            --ghost-green-glow: #ffcc00aa;
+            --border-neon: #cc0000;
+            --fog-color-1: rgba(204, 0, 0, 0.15);
+            --fog-color-2: rgba(0, 0, 0, 0.15);
+            --fog-color-3: rgba(255, 204, 0, 0.12);
+            --dice-grad-light: #ff4444; 
+            --dice-grad-dark: #880000;
+            --dice-text: #ffcc00;
+            --panel-bg: rgba(20, 10, 10, 0.4);
+        }
+
+        body.faction-darkangels {
+            --fog-light-green: #336633;
+            --ghost-green: #ffddaa;
+            --ghost-green-glow: #ffddaaaa;
+            --border-neon: #114411;
+            --fog-color-1: rgba(17, 68, 17, 0.15);
+            --fog-color-2: rgba(255, 221, 170, 0.1);
+            --fog-color-3: rgba(0, 0, 0, 0.1);
+            --dice-grad-light: #226622; 
+            --dice-grad-dark: #003300;
+            --dice-text: #ffddaa;
+            --panel-bg: rgba(10, 20, 10, 0.4);
+        }
+
+        body.faction-spacewolves {
+            --fog-light-green: #99ccff;
+            --ghost-green: #ffcc00;
+            --ghost-green-glow: #ffcc00aa;
+            --border-neon: #aaccff;
+            --fog-color-1: rgba(153, 204, 255, 0.15);
+            --fog-color-2: rgba(220, 230, 240, 0.1);
+            --fog-color-3: rgba(153, 204, 255, 0.12);
+            --dice-grad-light: #7094b8; 
+            --dice-grad-dark: #375371;
+            --dice-text: #ffdd00;
+            --panel-bg: rgba(15, 20, 25, 0.4);
+        }
+
+        body.faction-blacktemplars {
+            --fog-light-green: #ffffff;
+            --ghost-green: #ffffff;
+            --ghost-green-glow: #ffffffaa;
+            --border-neon: #ffffff;
+            --fog-color-1: rgba(255, 255, 255, 0.15);
+            --fog-color-2: rgba(150, 150, 150, 0.1);
+            --fog-color-3: rgba(255, 255, 255, 0.12);
+            --dice-grad-light: #ffffff; 
+            --dice-grad-dark: #dddddd;
+            --dice-text: #cc0000;
+            --panel-bg: rgba(10, 10, 10, 0.4);
+        }
+
+        body.faction-salamanders {
+            --fog-light-green: #ff8800;
+            --ghost-green: #00ff44;
+            --ghost-green-glow: #00ff44aa;
+            --border-neon: #00ff44;
+            --fog-color-1: rgba(255, 136, 0, 0.15);
+            --fog-color-2: rgba(0, 255, 68, 0.1);
+            --fog-color-3: rgba(255, 136, 0, 0.12);
+            --dice-grad-light: #00e639; 
+            --dice-grad-dark: #00661a;
+            --dice-text: #ffdddd;
+            --panel-bg: rgba(10, 25, 15, 0.4);
+        }
+
+        body.faction-imperialfists {
+            --fog-light-green: #ffea00;
+            --ghost-green: #ffea00;
+            --ghost-green-glow: #ffea00aa;
+            --border-neon: #ffea00;
+            --fog-color-1: rgba(255, 234, 0, 0.15);
+            --fog-color-2: rgba(200, 200, 200, 0.1);
+            --fog-color-3: rgba(255, 234, 0, 0.12);
+            --dice-grad-light: #ffea00; 
+            --dice-grad-dark: #ccaa00;
+            --dice-text: #000000;
+            --panel-bg: rgba(25, 25, 10, 0.4);
+        }
+
+        /* --- IMPERIUM: OTHER --- */
+        body.faction-astramilitarum {
+            --fog-light-green: #d2c29c;
+            --ghost-green: #5c6e3c;
+            --ghost-green-glow: #5c6e3caa;
+            --border-neon: #d2c29c;
+            --fog-color-1: rgba(210, 194, 156, 0.15);
+            --fog-color-2: rgba(92, 110, 60, 0.1);
+            --fog-color-3: rgba(210, 194, 156, 0.12);
+            --dice-grad-light: #5c6e3c; 
+            --dice-grad-dark: #293315;
+            --dice-text: #d2c29c;
+            --panel-bg: rgba(20, 20, 15, 0.4);
+        }
+
+        body.faction-custodes {
+            --fog-light-green: #ffcc00;
+            --ghost-green: #ffdd44;
+            --ghost-green-glow: #ffdd44aa;
+            --border-neon: #ffdd44;
+            --fog-color-1: rgba(255, 204, 0, 0.15);
+            --fog-color-2: rgba(204, 0, 0, 0.1);
+            --fog-color-3: rgba(255, 204, 0, 0.12);
+            --dice-grad-light: #ffdd44; 
+            --dice-grad-dark: #b38600;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(25, 20, 10, 0.4);
+        }
+
+        body.faction-sororitas {
+            --fog-light-green: #ff1111;
+            --ghost-green: #ffffff;
+            --ghost-green-glow: #ffffffaa;
+            --border-neon: #ff1111;
+            --fog-color-1: rgba(0, 0, 0, 0.15);
+            --fog-color-2: rgba(255, 17, 17, 0.15);
+            --fog-color-3: rgba(255, 255, 255, 0.12);
+            --dice-grad-light: #555555; 
+            --dice-grad-dark: #111111;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(15, 10, 10, 0.4);
+        }
+
+        body.faction-admech {
+            --fog-light-green: #ff3333;
+            --ghost-green: #ffeedd;
+            --ghost-green-glow: #ffeeddaa;
+            --border-neon: #cc0000;
+            --fog-color-1: rgba(204, 0, 0, 0.15);
+            --fog-color-2: rgba(200, 200, 200, 0.15);
+            --fog-color-3: rgba(255, 238, 221, 0.12);
+            --dice-grad-light: #ff4444; 
+            --dice-grad-dark: #880000;
+            --dice-text: #ffeedd;
+            --panel-bg: rgba(25, 15, 15, 0.4);
+        }
+
+        /* --- CHAOS LEGIONS --- */
+        body.faction-blacklegion {
+            --fog-light-green: #ffaa00;
+            --ghost-green: #ffcc00;
+            --ghost-green-glow: #ffcc00aa;
+            --border-neon: #ffcc00;
+            --fog-color-1: rgba(255, 204, 0, 0.15);
+            --fog-color-2: rgba(255, 0, 0, 0.1); 
+            --fog-color-3: rgba(0, 0, 0, 0.1);
+            --dice-grad-light: #444444; 
+            --dice-grad-dark: #111111;
+            --dice-text: #ffcc00;
+            --panel-bg: rgba(20, 20, 20, 0.4);
+        }
+
+        body.faction-worldeaters {
+            --fog-light-green: #ff2222;
+            --ghost-green: #cc8844;
+            --ghost-green-glow: #cc8844aa;
+            --border-neon: #ff2222;
+            --fog-color-1: rgba(255, 34, 34, 0.15);
+            --fog-color-2: rgba(204, 136, 68, 0.15);
+            --fog-color-3: rgba(255, 0, 0, 0.12);
+            --dice-grad-light: #ff3333; 
+            --dice-grad-dark: #880000;
+            --dice-text: #cc8844;
+            --panel-bg: rgba(25, 10, 10, 0.4);
+        }
+
+        body.faction-deathguard {
+            --fog-light-green: #88aa55;
+            --ghost-green: #ffaa55;
+            --ghost-green-glow: #ffaa55aa;
+            --border-neon: #88aa55;
+            --fog-color-1: rgba(136, 170, 85, 0.15);
+            --fog-color-2: rgba(153, 102, 51, 0.15);
+            --fog-color-3: rgba(255, 170, 85, 0.12);
+            --dice-grad-light: #99bb66; 
+            --dice-grad-dark: #445522;
+            --dice-text: #ffaa55;
+            --panel-bg: rgba(15, 20, 10, 0.4);
+        }
+
+        body.faction-thousandsons {
+            --fog-light-green: #00bbff;
+            --ghost-green: #ffdd00;
+            --ghost-green-glow: #ffdd00aa;
+            --border-neon: #00bbff;
+            --fog-color-1: rgba(0, 187, 255, 0.15);
+            --fog-color-2: rgba(255, 221, 0, 0.15);
+            --fog-color-3: rgba(0, 150, 255, 0.12);
+            --dice-grad-light: #00ccff; 
+            --dice-grad-dark: #005588;
+            --dice-text: #ffdd00;
+            --panel-bg: rgba(10, 15, 25, 0.4);
+        }
+
+        body.faction-ironwarriors {
+            --fog-light-green: #888888;
+            --ghost-green: #ffcc00;
+            --ghost-green-glow: #ffcc00aa;
+            --border-neon: #888888;
+            --fog-color-1: rgba(150, 150, 150, 0.15);
+            --fog-color-2: rgba(255, 204, 0, 0.1);
+            --fog-color-3: rgba(0, 0, 0, 0.12);
+            --dice-grad-light: #aaaaaa; 
+            --dice-grad-dark: #444444;
+            --dice-text: #ffcc00;
+            --panel-bg: rgba(15, 15, 15, 0.4);
+        }
+
+        body.faction-nightlords {
+            --fog-light-green: #aaaacc;
+            --ghost-green: #ff1111;
+            --ghost-green-glow: #ff1111aa;
+            --border-neon: #112266;
+            --fog-color-1: rgba(17, 34, 102, 0.2);
+            --fog-color-2: rgba(255, 17, 17, 0.1);
+            --fog-color-3: rgba(200, 200, 220, 0.1);
+            --dice-grad-light: #223388; 
+            --dice-grad-dark: #0a1133;
+            --dice-text: #ff1111;
+            --panel-bg: rgba(10, 10, 20, 0.4);
+        }
+
+        body.faction-alphalegion {
+            --fog-light-green: #00aaff;
+            --ghost-green: #00ffcc;
+            --ghost-green-glow: #00ffccaa;
+            --border-neon: #00aaff;
+            --fog-color-1: rgba(0, 255, 204, 0.15);
+            --fog-color-2: rgba(0, 170, 255, 0.15);
+            --fog-color-3: rgba(200, 200, 200, 0.1);
+            --dice-grad-light: #00e6b8; 
+            --dice-grad-dark: #006699;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(10, 20, 20, 0.4);
+        }
+
+        /* --- XENOS --- */
+        body.faction-orks {
+            --fog-light-green: #44aa00;
+            --ghost-green: #ff0000;
+            --ghost-green-glow: #ff0000aa;
+            --border-neon: #ff0000;
+            --fog-color-1: rgba(68, 170, 0, 0.15);
+            --fog-color-2: rgba(0, 0, 0, 0.2);
+            --fog-color-3: rgba(255, 255, 255, 0.1);
+            --dice-grad-light: #777777; 
+            --dice-grad-dark: #000000;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(15, 20, 10, 0.4);
+        }
+
+        body.faction-tyranids {
+            --fog-light-green: #ffb3ff;
+            --ghost-green: #cc0066;
+            --ghost-green-glow: #cc0066aa;
+            --border-neon: #cc0066;
+            --fog-color-1: rgba(102, 0, 102, 0.2);
+            --fog-color-2: rgba(255, 230, 240, 0.15);
+            --fog-color-3: rgba(204, 0, 102, 0.12);
+            --dice-grad-light: #880088; 
+            --dice-grad-dark: #330033;
+            --dice-text: #ffe6f0;
+            --panel-bg: rgba(20, 10, 20, 0.4);
+        }
+
+        body.faction-tau {
+            --fog-light-green: #ffffff;
+            --ghost-green: #00ffff;
+            --ghost-green-glow: #00ffffaa;
+            --border-neon: #cc0000;
+            --fog-color-1: rgba(255, 255, 255, 0.15);
+            --fog-color-2: rgba(80, 80, 80, 0.15);
+            --fog-color-3: rgba(200, 0, 0, 0.12);
+            --dice-grad-light: #ffffff; 
+            --dice-grad-dark: #666666;
+            --dice-text: #cc0000;
+            --panel-bg: rgba(20, 20, 25, 0.4);
+        }
+
+        body.faction-aeldari-ulthwe {
+            --fog-light-green: #ffddaa;
+            --ghost-green: #ffddaa;
+            --ghost-green-glow: #ffddaaaa;
+            --border-neon: #ffddaa;
+            --fog-color-1: rgba(255, 221, 170, 0.15);
+            --fog-color-2: rgba(50, 50, 50, 0.15);
+            --fog-color-3: rgba(255, 221, 170, 0.12);
+            --dice-grad-light: #333333; 
+            --dice-grad-dark: #000000;
+            --dice-text: #ffddaa;
+            --panel-bg: rgba(10, 10, 10, 0.4);
+        }
+
+        body.faction-aeldari-saimhann {
+            --fog-light-green: #ff0000;
+            --ghost-green: #ff0000;
+            --ghost-green-glow: #ff0000aa;
+            --border-neon: #ffffff;
+            --fog-color-1: rgba(255, 0, 0, 0.15);
+            --fog-color-2: rgba(255, 255, 255, 0.1);
+            --fog-color-3: rgba(255, 0, 0, 0.12);
+            --dice-grad-light: #ff3333; 
+            --dice-grad-dark: #990000;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(20, 10, 10, 0.4);
+        }
+
+        body.faction-drukhari {
+            --fog-light-green: #00ff66;
+            --ghost-green: #00ff66;
+            --ghost-green-glow: #00ff66aa;
+            --border-neon: #00ff66;
+            --fog-color-1: rgba(94, 0, 153, 0.15);
+            --fog-color-2: rgba(0, 255, 102, 0.1);
+            --fog-color-3: rgba(94, 0, 153, 0.12);
+            --dice-grad-light: #5e0099; 
+            --dice-grad-dark: #2a004d;
+            --dice-text: #00ff66;
+            --panel-bg: rgba(15, 5, 20, 0.4);
+        }
+
+        body.faction-genestealers {
+            --fog-light-green: #3366cc;
+            --ghost-green: #9933cc;
+            --ghost-green-glow: #9933ccaa;
+            --border-neon: #9933cc;
+            --fog-color-1: rgba(153, 51, 204, 0.15);
+            --fog-color-2: rgba(51, 102, 204, 0.15);
+            --fog-color-3: rgba(200, 180, 160, 0.12);
+            --dice-grad-light: #9966cc; 
+            --dice-grad-dark: #442266;
+            --dice-text: #d2c29c;
+            --panel-bg: rgba(15, 15, 25, 0.4);
+        }
+
+        body.faction-votann {
+            --fog-light-green: #66b3b3;
+            --ghost-green: #ff6600;
+            --ghost-green-glow: #ff6600aa;
+            --border-neon: #66b3b3;
+            --fog-color-1: rgba(102, 179, 179, 0.15);
+            --fog-color-2: rgba(153, 136, 102, 0.15);
+            --fog-color-3: rgba(255, 102, 0, 0.1);
+            --dice-grad-light: #66b3b3; 
+            --dice-grad-dark: #336666;
+            --dice-text: #ffffff;
+            --panel-bg: rgba(20, 25, 25, 0.4);
         }
 
         body {
@@ -45,7 +419,7 @@
             position: absolute;
             width: 150vw;
             height: 150vw;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 60%);
+            background: radial-gradient(circle, var(--fog-color-1) 0%, transparent 60%);
             border-radius: 50%;
             filter: blur(60px);
             opacity: 0.6;
@@ -55,7 +429,7 @@
         .fog-layer:nth-child(2) {
             width: 200vw;
             height: 100vw;
-            background: radial-gradient(circle, rgba(170, 255, 204, 0.1) 0%, transparent 60%);
+            background: radial-gradient(circle, var(--fog-color-2) 0%, transparent 60%);
             animation: drift-rev 25s infinite alternate ease-in-out;
             animation-delay: -5s;
         }
@@ -63,7 +437,7 @@
         .fog-layer:nth-child(3) {
             width: 100vw;
             height: 150vw;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--fog-color-3) 0%, transparent 70%);
             animation: drift-vertical 30s infinite alternate ease-in-out;
             animation-delay: -10s;
         }
@@ -171,9 +545,28 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-content: flex-start;
             gap: 15px;
             margin: 20px 0;
             min-height: 60px;
+            max-height: 35vh;
+            overflow-y: auto;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+        }
+        
+        .dice-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dice-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+        .dice-container::-webkit-scrollbar-thumb {
+            background: var(--ghost-green);
+            border-radius: 4px;
         }
 
         .die {
@@ -185,11 +578,49 @@
             font-size: 1.5rem;
             font-weight: bold;
             border-radius: 8px;
-            color: #fff;
+            color: var(--dice-text);
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation: roll-in 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
             opacity: 0;
             transform: translateY(-20px) rotate(-180deg);
+        }
+
+        .die-symbol {
+            width: 70%;
+            height: 70%;
+            background-color: currentColor;
+            -webkit-mask-image: var(--faction-symbol);
+            mask-image: var(--faction-symbol);
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
+
+        .faction-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vw;
+            max-width: 800px;
+            max-height: 800px;
+            z-index: 0;
+            opacity: 0.45;
+            background-color: var(--ghost-green);
+            -webkit-mask-image: var(--faction-symbol);
+            mask-image: var(--faction-symbol);
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            pointer-events: none;
+            transition: all 0.5s ease;
         }
 
         @keyframes roll-in {
@@ -200,9 +631,16 @@
         }
 
         .die.success {
-            background: linear-gradient(135deg, #00b359, #006633);
-            border: 2px solid #00ff88;
+            background: linear-gradient(135deg, var(--dice-grad-light), var(--dice-grad-dark));
+            border: 2px solid var(--ghost-green);
             box-shadow: 0 0 15px var(--ghost-green-glow);
+        }
+
+        .die.devastating {
+            background: linear-gradient(135deg, #00d2ff, #0077b3);
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 15px #00d2ffaa;
+            color: #fff;
         }
 
         .die.fail {
@@ -301,9 +739,51 @@
 <body>
 
     <div class="fog-container">
+        <div class="faction-watermark"></div>
         <div class="fog-layer"></div>
         <div class="fog-layer"></div>
         <div class="fog-layer"></div>
+    </div>
+    
+    <div style="position: absolute; top: 15px; left: 15px; z-index: 10;">
+        <label for="faction-select" style="font-size: 0.9rem; margin-bottom: 2px;">Faction</label>
+        <select id="faction-select" style="display: block; padding: 5px; background: rgba(0,0,0,0.7); border: 1px solid var(--ghost-green); color: var(--ghost-green); font-family: 'Share Tech Mono', monospace; border-radius: 3px; outline: none; cursor: pointer;">
+            <optgroup label="Imperium (Space Marines)">
+                <option value="ultramarines">Ultramarines</option>
+                <option value="bloodangels">Blood Angels</option>
+                <option value="darkangels">Dark Angels</option>
+                <option value="spacewolves">Space Wolves</option>
+                <option value="blacktemplars">Black Templars</option>
+                <option value="imperialfists">Imperial Fists</option>
+                <option value="salamanders">Salamanders</option>
+            </optgroup>
+            <optgroup label="Imperium (Other)">
+                <option value="astramilitarum">Astra Militarum</option>
+                <option value="custodes">Adeptus Custodes</option>
+                <option value="sororitas">Adepta Sororitas</option>
+                <option value="admech">Adeptus Mechanicus</option>
+            </optgroup>
+            <optgroup label="Chaos (Legions)">
+                <option value="blacklegion">Black Legion</option>
+                <option value="worldeaters">World Eaters</option>
+                <option value="deathguard">Death Guard</option>
+                <option value="thousandsons">Thousand Sons</option>
+                <option value="ironwarriors">Iron Warriors</option>
+                <option value="nightlords">Night Lords</option>
+                <option value="alphalegion">Alpha Legion</option>
+            </optgroup>
+            <optgroup label="Xenos">
+                <option value="necrons">Necrons (Szarekhan)</option>
+                <option value="orks">Orks (Goffs)</option>
+                <option value="tyranids">Tyranids (Leviathan)</option>
+                <option value="tau">T'au Empire (Vior'la)</option>
+                <option value="aeldari-ulthwe">Aeldari (Ulthwé)</option>
+                <option value="aeldari-saimhann">Aeldari (Saim-Hann)</option>
+                <option value="drukhari">Drukhari</option>
+                <option value="genestealers">Genestealer Cults</option>
+                <option value="votann">Leagues of Votann</option>
+            </optgroup>
+        </select>
     </div>
 
     <div class="container" id="app-container">
@@ -349,7 +829,19 @@
             <div class="dice-container" id="hit-dice-container"></div>
             <div class="summary-text" id="hit-summary"></div>
             
+            <button id="btn-reroll-hits" style="margin-top: 10px; background: rgba(255, 165, 0, 0.2); border-color: #ffa500; text-shadow: 0 0 5px #ffa500; display: none;">Reroll Failed Hits</button>
+            
             <hr style="border: 0; border-top: 1px dashed var(--ghost-green); margin: 25px 0; opacity: 0.5;">
+            
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="dev-wounds">Devastating Wounds</label>
+                <select id="dev-wounds" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--ghost-green); color: #fff; font-size: 1.1rem; font-family: 'Share Tech Mono', monospace; border-radius: 5px; outline: none; transition: all 0.3s ease; appearance: none; cursor: pointer;">
+                    <option value="7">None</option>
+                    <option value="6">Critical Wounds (6+)</option>
+                    <option value="5">Critical Wounds (5+)</option>
+                    <option value="4">Critical Wounds (4+)</option>
+                </select>
+            </div>
             
             <div class="form-group">
                 <label for="toughness">Target Toughness (T)</label>
@@ -365,6 +857,7 @@
             <div class="dice-container" id="wound-dice-container"></div>
             <div class="summary-text" id="wound-summary"></div>
             
+            <button id="btn-reroll-wounds" style="margin-top: 10px; background: rgba(255, 165, 0, 0.2); border-color: #ffa500; text-shadow: 0 0 5px #ffa500; display: none;">Reroll Failed Wounds</button>
             <button id="btn-restart" style="margin-top: 25px; background: rgba(0, 255, 136, 0.2);">Restart</button>
         </div>
     </div>
@@ -374,11 +867,17 @@
         let currentHits = 0;
         let autoWounds = 0;
         let storedSTR = 0;
+        let failedHitCount = 0;
+        let failedWoundCount = 0;
+        let woundsAllocated = 0;
+        let devWoundsCount = 0;
+        let storedWoundTarget = 0;
 
         const elAttacks = document.getElementById('attacks');
         const elBS = document.getElementById('bs');
         const elSTR = document.getElementById('strength');
         const btnHits = document.getElementById('btn-roll-hits');
+        const btnRerollHits = document.getElementById('btn-reroll-hits');
         const hitDiceContainer = document.getElementById('hit-dice-container');
         const hitSummary = document.getElementById('hit-summary');
         
@@ -386,7 +885,9 @@
         const section2 = document.getElementById('section-2');
         const section3 = document.getElementById('section-3');
         const elToughness = document.getElementById('toughness');
+        const elDevWounds = document.getElementById('dev-wounds');
         const btnWounds = document.getElementById('btn-roll-wounds');
+        const btnRerollWounds = document.getElementById('btn-reroll-wounds');
         const woundTargetText = document.getElementById('wound-target-text');
         const woundDiceContainer = document.getElementById('wound-dice-container');
         const woundSummary = document.getElementById('wound-summary');
@@ -398,14 +899,28 @@
         }
 
         // Helper: Render Dice
-        function renderDice(container, rolls, successThreshold) {
-            container.innerHTML = '';
+        function renderDice(container, rolls, successThreshold, devThreshold = 7, append = false) {
+            if (!append) container.innerHTML = '';
             rolls.forEach((roll, index) => {
                 const die = document.createElement('div');
                 die.classList.add('die');
-                die.classList.add(roll >= successThreshold ? 'success' : 'fail');
-                die.textContent = roll;
-                die.style.animationDelay = `${index * 0.05}s`;
+                if (roll >= devThreshold) {
+                    die.classList.add('devastating');
+                } else if (roll >= successThreshold) {
+                    die.classList.add('success');
+                } else {
+                    die.classList.add('fail');
+                }
+                
+                if (roll === 6) {
+                    const symbol = document.createElement('div');
+                    symbol.classList.add('die-symbol');
+                    die.appendChild(symbol);
+                } else {
+                    die.textContent = roll;
+                }
+                
+                die.style.animationDelay = `${index * 0.02}s`;
                 container.appendChild(die);
             });
         }
@@ -436,6 +951,7 @@
             const rolls = [];
             currentHits = 0;
             autoWounds = 0;
+            failedHitCount = 0;
 
             for(let i=0; i<attacks; i++) {
                 const r = rollD6();
@@ -452,6 +968,8 @@
                     }
                 } else if (r >= bs) {
                     currentHits++;
+                } else {
+                    failedHitCount++;
                 }
             }
 
@@ -460,10 +978,53 @@
             hitSummary.innerHTML = `Hits to Roll: ${currentHits}` + 
                 (autoWounds > 0 ? `<br><span style="color:var(--border-neon); font-size:1.4rem;">Auto-Wounds: ${autoWounds}</span>` : '');
 
+            btnRerollHits.style.display = failedHitCount > 0 ? 'inline-block' : 'none';
+
             section1.style.display = 'none';
             section2.style.display = 'block';
             
             spawnParticles();
+        });
+
+        // Event: Reroll Failed Hits
+        btnRerollHits.addEventListener('click', () => {
+             btnRerollHits.style.display = 'none'; // Only allow reroll once
+             
+             // Remove all failed dice visually
+             hitDiceContainer.querySelectorAll('.fail').forEach(el => el.remove());
+             
+             const rerollCount = failedHitCount;
+             failedHitCount = 0;
+             const bs = parseInt(elBS.value) || 2;
+             
+             const lethalEnabled = document.getElementById('lethal-hits').checked;
+             const sustained1Enabled = document.getElementById('sustained-hits-1').checked;
+             const sustained2Enabled = document.getElementById('sustained-hits-2').checked;
+             let sustainedLevel = 0;
+             if (sustained1Enabled) sustainedLevel = 1;
+             if (sustained2Enabled) sustainedLevel = 2;
+             
+             const newRolls = [];
+             for (let i = 0; i < rerollCount; i++) {
+                 const r = rollD6();
+                 newRolls.push(r);
+                 if (r === 6) {
+                     if (lethalEnabled) autoWounds++;
+                     else currentHits++;
+                     if (sustainedLevel > 0) currentHits += sustainedLevel;
+                 } else if (r >= bs) {
+                     currentHits++;
+                 } else {
+                     failedHitCount++;
+                 }
+             }
+             
+             renderDice(hitDiceContainer, newRolls, bs, 7, true);
+             
+             hitSummary.innerHTML = `Hits to Roll: ${currentHits}` + 
+                 (autoWounds > 0 ? `<br><span style="color:var(--border-neon); font-size:1.4rem;">Auto-Wounds: ${autoWounds}</span>` : '');
+             
+             spawnParticles();
         });
 
         // Event: Wound Roll
@@ -471,32 +1032,134 @@
             if (currentHits <= 0 && autoWounds <= 0) return;
 
             const t = parseInt(elToughness.value) || 1;
-            const woundTarget = getWoundTarget(storedSTR, t);
+            storedWoundTarget = getWoundTarget(storedSTR, t);
+            const devThreshold = parseInt(elDevWounds.value) || 7;
 
-            woundTargetText.innerText = `Target to Wound: ${woundTarget}+`;
+            woundTargetText.innerText = `Target to Wound: ${storedWoundTarget}+`;
 
             const rolls = [];
-            let woundsAllocated = autoWounds;
+            woundsAllocated = autoWounds;
+            devWoundsCount = 0;
+            failedWoundCount = 0;
 
             for(let i=0; i<currentHits; i++) {
                 const r = rollD6();
                 rolls.push(r);
-                if (r >= woundTarget) woundsAllocated++;
+                if (r >= devThreshold) {
+                    woundsAllocated++;
+                    devWoundsCount++;
+                } else if (r >= storedWoundTarget) {
+                    woundsAllocated++;
+                } else {
+                    failedWoundCount++;
+                }
             }
 
-            renderDice(woundDiceContainer, rolls, woundTarget);
+            renderDice(woundDiceContainer, rolls, storedWoundTarget, devThreshold);
+            updateWoundSummary();
             
-            let summaryHtml = `${woundsAllocated} Wounds Allocated!`;
-            if (autoWounds > 0) {
-                summaryHtml += `<br><span style="font-size:1.2rem; color:#aaa; font-family:'Share Tech Mono', monospace;">(Includes ${autoWounds} Auto-Wounds)</span>`;
-            }
-            woundSummary.innerHTML = summaryHtml;
+            btnRerollWounds.style.display = failedWoundCount > 0 ? 'inline-block' : 'none';
             
             section2.style.display = 'none';
             section3.style.display = 'block';
             
             spawnParticles();
         });
+
+        // Event: Reroll Failed Wounds
+        btnRerollWounds.addEventListener('click', () => {
+             btnRerollWounds.style.display = 'none';
+             
+             woundDiceContainer.querySelectorAll('.fail').forEach(el => el.remove());
+             
+             const devThreshold = parseInt(elDevWounds.value) || 7;
+             const rerollCount = failedWoundCount;
+             failedWoundCount = 0;
+             
+             const newRolls = [];
+             for (let i = 0; i < rerollCount; i++) {
+                 const r = rollD6();
+                 newRolls.push(r);
+                 if (r >= devThreshold) {
+                     woundsAllocated++;
+                     devWoundsCount++;
+                 } else if (r >= storedWoundTarget) {
+                     woundsAllocated++;
+                 } else {
+                     failedWoundCount++; 
+                 }
+             }
+             
+             renderDice(woundDiceContainer, newRolls, storedWoundTarget, devThreshold, true);
+             updateWoundSummary();
+             spawnParticles();
+        });
+
+        function updateWoundSummary() {
+            let woundsToSave = woundsAllocated - devWoundsCount;
+            let summaryHtml = '';
+            
+            if (woundsToSave > 0 || devWoundsCount === 0) {
+                summaryHtml += `<div style="font-size: 1.8rem; margin-bottom: 5px;">${woundsToSave} WOUNDS TO SAVE</div>`;
+            }
+            if (devWoundsCount > 0) {
+                summaryHtml += `<div style="color:#00d2ff; font-size: 1.8rem; text-shadow: 0 0 10px #00d2ffaa; margin-top: 5px;">${devWoundsCount} DEVASTATING WOUNDS</div>`;
+            }
+            
+            let subtext = [];
+            if (autoWounds > 0) subtext.push(`${autoWounds} Auto-Wounds included`);
+            
+            if (subtext.length > 0) {
+                summaryHtml += `<div style="margin-top: 10px;"><span style="font-size:1.2rem; color:#aaa; font-family:'Share Tech Mono', monospace;">(${subtext.join(', ')})</span></div>`;
+            }
+            woundSummary.innerHTML = summaryHtml;
+        }
+        const factionLogos = {
+            'ultramarines': 'human_imperium/astartes_legion/ultramarines.svg',
+            'bloodangels': 'human_imperium/astartes_legion/blood-angels.svg',
+            'darkangels': 'human_imperium/astartes_legion/dark-angels.svg',
+            'spacewolves': 'human_imperium/astartes_legion/space-wolves.svg',
+            'blacktemplars': 'human_imperium/astartes_chapters/black-templars.svg',
+            'imperialfists': 'human_imperium/astartes_legion/imperial-fists.svg',
+            'salamanders': 'human_imperium/astartes_legion/salamanders.svg',
+            'astramilitarum': 'human_imperium/astra-militarum.svg',
+            'custodes': 'human_imperium/adeptus-custodes.svg',
+            'sororitas': 'human_imperium/sisters-of-battle.svg',
+            'admech': 'human_imperium/adeptus-mechanicus.svg',
+            'blacklegion': 'chaos/legions/black-legion.svg',
+            'worldeaters': 'chaos/legions/world-eaters-1.svg',
+            'deathguard': 'chaos/legions/death-guard.svg',
+            'thousandsons': 'chaos/legions/thousand-sons.svg',
+            'ironwarriors': 'chaos/legions/iron-warriors.svg',
+            'nightlords': 'chaos/legions/night-lords.svg',
+            'alphalegion': 'chaos/legions/alpha-legion-1.svg',
+            'chaos': 'chaos/chaos-star-01.svg',
+            'necrons': 'xenos/necrons/szarekhan.svg',
+            'orks': 'xenos/orks/goffs-clan.svg',
+            'tyranids': 'xenos/tyranids.svg',
+            'tau': 'xenos/tau_empire/viorla-sept.svg',
+            'aeldari-ulthwe': 'xenos/eldar/craftworld-ulthwe.svg',
+            'aeldari-saimhann': 'xenos/eldar/craftworld-saim-hann.svg',
+            'drukhari': 'xenos/durhkari/dark-eldar.svg',
+            'genestealers': 'xenos/genestealer_cult/genestealer-cults.svg',
+            'votann': 'xenos/leagues-of-votann.svg'
+        };
+        const baseUrl = 'https://cdn.jsdelivr.net/gh/Certseeds/wh40k-icon@master/src/svgs/';
+
+        function updateFactionSymbol(faction) {
+            const logoPath = factionLogos[faction] || factionLogos['necrons'];
+            document.documentElement.style.setProperty('--faction-symbol', `url('${baseUrl}${logoPath}')`);
+        }
+        
+        // Event: Faction Change
+        document.getElementById('faction-select').addEventListener('change', (e) => {
+            const faction = e.target.value;
+            document.body.className = faction === 'necrons' ? '' : `faction-${faction}`;
+            updateFactionSymbol(faction);
+        });
+        
+        // Initialize symbol on load based on current dropdown value
+        updateFactionSymbol(document.getElementById('faction-select').value || 'necrons');
         
         // Event: Restart
         btnRestart.addEventListener('click', () => {
